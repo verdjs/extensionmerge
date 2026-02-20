@@ -1157,6 +1157,45 @@ tp-yt-paper-listbox.ytmusic-menu-popup-renderer {
   background: rgba(255, 61, 80, 1);
 }
 
+/* YouLy+ integration in NNPG overlay */
+#ytm-youly-area {
+  display: none;
+  width: 500px;
+  height: 65vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  /* Inherited by #lyrics-plus-container's padding-top via calc(1em + var(--lyrics-scroll-padding-top)) */
+  --lyrics-scroll-padding-top: 25%;
+  scroll-padding-top: 25%;
+}
+
+#ytm-youly-area::-webkit-scrollbar {
+  display: none;
+}
+
+body.ytm-youly-active #my-lyrics-container {
+  display: none !important;
+}
+
+body.ytm-youly-active #ytm-youly-area {
+  display: block;
+}
+
+#ytm-youly-area #lyrics-plus-container {
+  --lyplus-text-secondary: rgba(255, 255, 255, 0.65);
+  display: block !important;
+}
+
+#ytm-youly-area .lyrics-line {
+  mix-blend-mode: normal !important;
+}
+
+/* Hide YouLy+ button overlay inside NNPG panel */
+body.ytm-youly-active #lyrics-plus-buttons-wrapper {
+  display: none !important;
+}
+
 /* 縦画面レイアウト */
 @media (orientation: portrait) {
   body.ytm-custom-layout #ytm-custom-wrapper {
@@ -1220,6 +1259,11 @@ tp-yt-paper-listbox.ytmusic-menu-popup-renderer {
     max-width: 520px;
     padding-right: 16px;
     padding-top: 10vh;
+  }
+
+  #ytm-youly-area {
+    width: 100%;
+    max-width: 520px;
   }
 
   body.ytm-custom-layout #ytm-share-hint {
