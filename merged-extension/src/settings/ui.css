@@ -307,10 +307,10 @@ h2.card-title.no-border {
 }
 
 .category-title {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: var(--md-sys-color-primary);
     margin-bottom: 24px;
     padding-bottom: 12px;

@@ -745,18 +745,18 @@ document.addEventListener('click', function (e) {
 
 // ---- Immersion (YTM-Immersion / nnpg) Settings ----
 
-const pBrowserImmersion = typeof browser !== 'undefined' ? browser : (typeof chrome !== 'undefined' ? chrome : null);
+const immersionBrowser = typeof browser !== 'undefined' ? browser : (typeof chrome !== 'undefined' ? chrome : null);
 
 function immersionStorageGet(key, defaultVal) {
     return new Promise(resolve => {
-        pBrowserImmersion.storage.local.get([key], result => {
+        immersionBrowser.storage.local.get([key], result => {
             resolve(result[key] !== undefined ? result[key] : defaultVal);
         });
     });
 }
 
 function immersionStorageSet(items) {
-    return new Promise(resolve => pBrowserImmersion.storage.local.set(items, resolve));
+    return new Promise(resolve => immersionBrowser.storage.local.set(items, resolve));
 }
 
 async function loadImmersionSettings() {
@@ -835,6 +835,8 @@ async function saveImmersionSettings() {
 
 document.getElementById('save-immersion')?.addEventListener('click', saveImmersionSettings);
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => loadImmersionSettings());
+} else {
     loadImmersionSettings();
-});
+}
