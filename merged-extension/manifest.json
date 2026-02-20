@@ -1,0 +1,134 @@
+{
+  "manifest_version": 3,
+  "name": "YTM-Immersion + YouLy+",
+  "version": "1.0.0",
+  "description": "Immersive YouTube Music UI with play statistics and YouLy+ word-by-word synced lyrics",
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.music.youtube.com/*",
+    "*://*.music.apple.com/*",
+    "*://*.tidal.com/*",
+    "https://lrclib.net/*",
+    "https://lrchub.coreone.work/*",
+    "http://lrchub.coreone.work/*",
+    "https://immersionproject.coreone.work/*",
+    "http://immersionproject.coreone.work/*",
+    "https://api-free.deepl.com/*",
+    "https://api.deepl.com/*",
+    "http://127.0.0.1:5678/*",
+    "http://localhost:5678/*"
+  ],
+  "action": {
+    "default_popup": "src/popup/ui.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/combined.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.music.youtube.com/*"
+      ],
+      "js": [
+        "src/lib/sponsorblock.js",
+        "src/lib/polyfill.js",
+        "src/lib/md3e-progress.js",
+        "src/lib/colorTunes.js",
+        "src/localization.js",
+        "src/modules/lyrics/settings.js",
+        "src/modules/lyrics/lyricsManager.js",
+        "src/modules/lyrics/lyricsRenderer.js",
+        "src/modules/ytmusic/forceTab.js",
+        "src/modules/lyrics/dynamicBkg.js",
+        "src/modules/ytmusic/index.js",
+        "src/content.js",
+        "src/nnpg/content.js"
+      ],
+      "css": [
+        "src/nnpg/style.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://*.music.apple.com/*"
+      ],
+      "js": [
+        "src/lib/polyfill.js",
+        "src/localization.js",
+        "src/modules/lyrics/settings.js",
+        "src/modules/lyrics/lyricsManager.js",
+        "src/modules/lyrics/lyricsRenderer.js",
+        "src/modules/lyrics/dynamicBkg.js",
+        "src/modules/applemusic/index.js",
+        "src/content.js"
+      ]
+    },
+    {
+      "matches": [
+        "*://*.tidal.com/*"
+      ],
+      "js": [
+        "src/lib/polyfill.js",
+        "src/localization.js",
+        "src/modules/lyrics/settings.js",
+        "src/modules/lyrics/lyricsManager.js",
+        "src/modules/lyrics/lyricsRenderer.js",
+        "src/modules/lyrics/dynamicBkg.js",
+        "src/modules/tidal/index.js",
+        "src/content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/modules/lyrics/lyrics.css",
+        "src/modules/ytmusic/style.css",
+        "src/inject/ytmusic/songTracker.js",
+        "src/modules/applemusic/style.css",
+        "src/inject/applemusic/songTracker.js",
+        "src/assets/loading.gif",
+        "src/assets/fonts/InterVariable.woff2",
+        "src/nnpg/lang/ui.json"
+      ],
+      "matches": [
+        "*://*.music.youtube.com/*",
+        "*://*.music.apple.com/*"
+      ]
+    },
+    {
+      "resources": [
+        "src/modules/lyrics/lyrics.css",
+        "src/modules/tidal/style.css",
+        "src/assets/loading.gif"
+      ],
+      "matches": [
+        "*://*.tidal.com/*"
+      ]
+    },
+    {
+      "resources": [
+        "src/modules/lyrics/lyrics.css",
+        "src/modules/applemusic/style.css",
+        "src/assets/loading.gif"
+      ],
+      "matches": [
+        "*://*.music.apple.com/*"
+      ]
+    }
+  ]
+}
