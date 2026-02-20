@@ -1,0 +1,115 @@
+{
+    "manifest_version":  3,
+    "name":  "YouLy+",
+    "version":  "4.1.1",
+    "description":  "Enhanced lyrics feature for YouTube Music, Apple Music \u0026 Tidal with line-by-line and word-by-word sync",
+    "permissions":  [
+                        "activeTab",
+                        "storage",
+                        "scripting"
+                    ],
+    "host_permissions":  [
+                             "*://*.music.youtube.com/*",
+                             "*://*.tidal.com/*"
+                         ],
+    "action":  {
+                   "default_popup":  "src/popup/ui.html",
+                   "default_icon":  {
+                                        "16":  "icons/icon16.png",
+                                        "32":  "icons/icon32.png",
+                                        "48":  "icons/icon48.png",
+                                        "128":  "icons/icon128.png"
+                                    }
+               },
+    "content_scripts":  [
+                            {
+                                "matches":  [
+                                                "*://*.music.youtube.com/*"
+                                            ],
+                                "js":  [
+                                           "src/lib/sponsorblock.js",
+                                           "src/lib/polyfill.js",
+                                           "src/lib/md3e-progress.js",
+                                           "src/lib/colorTunes.js",
+                                           "src/localization.js",
+                                           "src/modules/lyrics/settings.js",
+                                           "src/modules/lyrics/lyricsManager.js",
+                                           "src/modules/lyrics/lyricsRenderer.js",
+                                           "src/modules/ytmusic/forceTab.js",
+                                           "src/modules/lyrics/dynamicBkg.js",
+                                           "src/modules/ytmusic/index.js",
+                                           "src/content.js"
+                                       ]
+                            },
+                            {
+                                "matches":  [
+                                                "*://*.music.apple.com/*"
+                                            ],
+                                "js":  [
+                                           "src/lib/polyfill.js",
+                                           "src/localization.js",
+                                           "src/modules/lyrics/settings.js",
+                                           "src/modules/lyrics/lyricsManager.js",
+                                           "src/modules/lyrics/lyricsRenderer.js",
+                                           "src/modules/lyrics/dynamicBkg.js",
+                                           "src/modules/applemusic/index.js",
+                                           "src/content.js"
+                                       ]
+                            },
+                            {
+                                "matches":  [
+                                                "*://*.tidal.com/*"
+                                            ],
+                                "js":  [
+                                           "src/lib/polyfill.js",
+                                           "src/localization.js",
+                                           "src/modules/lyrics/settings.js",
+                                           "src/modules/lyrics/lyricsManager.js",
+                                           "src/modules/lyrics/lyricsRenderer.js",
+                                           "src/modules/lyrics/dynamicBkg.js",
+                                           "src/modules/tidal/index.js",
+                                           "src/content.js"
+                                       ]
+                            }
+                        ],
+    "web_accessible_resources":  [
+                                     {
+                                         "resources":  [
+                                                           "src/modules/lyrics/lyrics.css",
+                                                           "src/modules/ytmusic/style.css",
+                                                           "src/inject/ytmusic/songTracker.js",
+                                                           "src/modules/applemusic/style.css",
+                                                           "src/inject/applemusic/songTracker.js",
+                                                           "src/assets/loading.gif"
+                                                       ],
+                                         "matches":  [
+                                                         "*://*.music.youtube.com/*",
+                                                         "*://*.music.apple.com/*"
+                                                     ]
+                                     },
+                                     {
+                                         "resources":  [
+                                                           "src/modules/lyrics/lyrics.css",
+                                                           "src/modules/tidal/style.css",
+                                                           "src/assets/loading.gif"
+                                                       ],
+                                         "matches":  [
+                                                         "*://*.tidal.com/*"
+                                                     ]
+                                     },
+                                     {
+                                         "resources":  [
+                                                           "src/modules/lyrics/lyrics.css",
+                                                           "src/modules/applemusic/style.css",
+                                                           "src/assets/loading.gif"
+                                                       ],
+                                         "matches":  [
+                                                         "*://*.music.apple.com/*"
+                                                     ]
+                                     }
+                                 ],
+    "background":  {
+                       "service_worker":  "src/background/lyricsHandler.js",
+                       "type":  "module"
+                   }
+}
