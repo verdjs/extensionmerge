@@ -3950,6 +3950,54 @@ function renderSettingsPanel() {
     };
   }
 
+  let _youlyMountObserver = null;
+
+  function autoMountYoulyLyrics() {
+    const youlyArea = document.getElementById('ytm-youly-area');
+    if (!youlyArea) return;
+
+    const youlyContainer = document.getElementById('lyrics-plus-container');
+    if (youlyContainer) {
+      if (!youlyArea.contains(youlyContainer)) {
+        youlyArea.appendChild(youlyContainer);
+      }
+      youlyContainer.style.display = 'block';
+      document.body.classList.add('ytm-youly-active');
+      if (_youlyMountObserver) {
+        _youlyMountObserver.disconnect();
+        _youlyMountObserver = null;
+      }
+    } else {
+      document.body.classList.remove('ytm-youly-active');
+      if (!_youlyMountObserver) {
+        _youlyMountObserver = new MutationObserver(() => {
+          if (document.getElementById('lyrics-plus-container')) {
+            autoMountYoulyLyrics();
+          }
+        });
+        const observeTarget = document.querySelector('#tab-renderer') || document.body;
+        _youlyMountObserver.observe(observeTarget, { childList: true, subtree: true });
+      }
+    }
+  }
+
+  function unmountYoulyLyrics() {
+    if (!document.body.classList.contains('ytm-youly-active')) return;
+    if (_youlyMountObserver) {
+      _youlyMountObserver.disconnect();
+      _youlyMountObserver = null;
+    }
+    const youlyContainer = document.getElementById('lyrics-plus-container');
+    if (youlyContainer) {
+      const originalParent = document.querySelector('#tab-renderer');
+      if (originalParent && !originalParent.contains(youlyContainer)) {
+        originalParent.appendChild(youlyContainer);
+        youlyContainer.style.display = '';
+      }
+    }
+    document.body.classList.remove('ytm-youly-active');
+  }
+
   function initLayout() {
     if (document.getElementById('ytm-custom-wrapper')) {
       ui.wrapper = document.getElementById('ytm-custom-wrapper');
@@ -3960,6 +4008,7 @@ function renderSettingsPanel() {
       ui.artwork = document.getElementById('ytm-artwork-container');
       ui.btnArea = document.getElementById('ytm-btn-area');
       setupAutoHideEvents();
+      autoMountYoulyLyrics();
       return;
     }
     ui.bg = createEl('div', 'ytm-custom-bg');
@@ -3972,106 +4021,6 @@ function renderSettingsPanel() {
     ui.artist = createEl('div', 'ytm-custom-artist');
     ui.btnArea = createEl('div', 'ytm-btn-area');
 
-    const btns = [];
-    const lyricsBtnConfig = {
-      txt: 'Lyrics',
-      cls: 'lyrics-btn',
-      click: () => {
-        // Show YouLy+ word-by-word synced lyrics panel over the immersion overlay
-        let lyricsPanel = document.getElementById('ytm-youly-lyrics-panel');
-        if (lyricsPanel) {
-          lyricsPanel.style.display = lyricsPanel.style.display === 'none' ? 'flex' : 'none';
-          return;
-        }
-        lyricsPanel = document.createElement('div');
-        lyricsPanel.id = 'ytm-youly-lyrics-panel';
-        lyricsPanel.style.cssText = [
-          'position:fixed', 'top:0', 'left:0', 'width:100vw', 'height:100vh',
-          'background:rgba(0,0,0,0.88)', 'z-index:10002', 'display:flex',
-          'flex-direction:column', 'align-items:center', 'justify-content:flex-start',
-          'padding:16px', 'box-sizing:border-box', 'overflow:hidden'
-        ].join(';');
-        const header = document.createElement('div');
-        header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;max-width:700px;margin-bottom:12px;';
-        const title = document.createElement('span');
-        title.textContent = 'YouLy+ Lyrics';
-        title.style.cssText = 'font-size:18px;font-weight:600;color:#fff;';
-        const closeBtn = document.createElement('button');
-        closeBtn.textContent = '✕';
-        closeBtn.style.cssText = 'background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:0.7;padding:4px 8px;';
-        closeBtn.onclick = () => { lyricsPanel.style.display = 'none'; };
-        header.appendChild(title);
-        header.appendChild(closeBtn);
-        lyricsPanel.appendChild(header);
-        const lyricsWrapper = document.createElement('div');
-        lyricsWrapper.id = 'ytm-youly-lyrics-wrapper';
-        lyricsWrapper.style.cssText = 'flex:1;width:100%;max-width:700px;overflow-y:auto;position:relative;';
-        lyricsPanel.appendChild(lyricsWrapper);
-        document.body.appendChild(lyricsPanel);
-        // Move YouLy+ lyrics container into this panel
-        const youlyContainer = document.getElementById('lyrics-plus-container');
-        if (youlyContainer) {
-          lyricsWrapper.appendChild(youlyContainer);
-          youlyContainer.style.display = 'block';
-        } else {
-          const placeholder = document.createElement('div');
-          placeholder.style.cssText = 'color:rgba(255,255,255,0.5);text-align:center;padding:40px 20px;font-size:15px;';
-          placeholder.textContent = 'YouLy+ lyrics not available. Make sure YouLy+ is enabled in settings.';
-          lyricsWrapper.appendChild(placeholder);
-        }
-      }
-    };
-    const shareBtnConfig = { txt: 'Share', cls: 'share-btn', click: onShareButtonClick };
-
-    // PiP button
-    const pipBtnConfig = {
-      txt: 'PIP',
-      cls: 'icon-btn',
-      click: () => PipManager.toggle()
-    };
-
-    const replayBtnConfig = {
-      txt: '📊',
-      cls: 'icon-btn',
-      click: () => {
-        if (!ui.replayPanel) {
-          createReplayPanel();
-        }
-        ui.replayPanel.classList.add('active');
-        ReplayManager.renderUI();
-      }
-    };
-
-    
-    const settingsBtnConfig = {
-      txt: '⚙️',
-      cls: 'icon-btn',
-      click: async () => {
-        initSettings();
-        await loadRemoteTextsFromGithub();
-        refreshUiLangGroup();
-        ui.settings.classList.toggle('active');
-      }
-    };
-
-    // Add to button array
-    btns.push(lyricsBtnConfig, shareBtnConfig, pipBtnConfig, replayBtnConfig,  settingsBtnConfig);
-
-    btns.forEach(b => {
-      const btn = createEl('button', '', `ytm-glass-btn ${b.cls || ''}`, b.txt);
-      btn.onclick = b.click;
-      ui.btnArea.appendChild(btn);
-      if (b === lyricsBtnConfig) {
-        ui.lyricsBtn = btn;
-        setupUploadMenu(btn);
-      }
-      if (b === shareBtnConfig) {
-        ui.shareBtn = btn;
-      }
-      
-      if (b === settingsBtnConfig) ui.settingsBtn = btn;
-    });
-
     ui.input = createEl('input');
     ui.input.type = 'file';
     ui.input.accept = '.lrc,.txt';
@@ -4081,9 +4030,11 @@ function renderSettingsPanel() {
     info.append(ui.title, ui.artist, ui.btnArea);
     leftCol.append(ui.artwork, info);
     ui.lyrics = createEl('div', 'my-lyrics-container');
-    ui.wrapper.append(leftCol, ui.lyrics);
+    const youlyArea = createEl('div', 'ytm-youly-area');
+    ui.wrapper.append(leftCol, ui.lyrics, youlyArea);
     document.body.appendChild(ui.wrapper);
     setupAutoHideEvents();
+    autoMountYoulyLyrics();
   }
 
   async function loadLyrics(meta) {
@@ -5015,7 +4966,7 @@ function renderLyrics(data) {
         toggleBtn.onclick = () => {
           config.mode = !config.mode;
           document.body.classList.toggle('ytm-custom-layout', config.mode);
-
+          if (!config.mode) unmountYoulyLyrics();
 
           toggleBtn.classList.toggle('active', config.mode);
         };
@@ -5033,6 +4984,7 @@ function renderLyrics(data) {
     const isPlayerOpen = layout?.hasAttribute('player-page-open');
     if (!config.mode || !isPlayerOpen) {
       document.body.classList.remove('ytm-custom-layout');
+      unmountYoulyLyrics();
       // Discord presence: clear when not in player-page
       clearDiscordPresence();
       return;
@@ -5114,6 +5066,9 @@ function renderLyrics(data) {
       }
 
       updateMetaUI(meta);
+
+      // Re-mount YouLy+ lyrics after song change if needed
+      autoMountYoulyLyrics();
 
       // Update PIP window metadata (title, artist, image)
       if (PipManager) {
