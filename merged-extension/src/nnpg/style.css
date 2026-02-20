@@ -81,11 +81,18 @@ body.ytm-custom-layout.ytm-no-lyrics #my-lyrics-container {
 
 body.ytm-custom-layout.ytm-no-lyrics #ytm-custom-wrapper {
   gap: 0;
+  justify-content: center;
 }
 
 body.ytm-custom-layout.ytm-no-lyrics #ytm-custom-left-col {
   transform: scale(1.1);
   transition: transform 0.5s ease;
+}
+
+/* Hide YouLy+ "no lyrics found" message in the immersion layout */
+body.ytm-custom-layout #lyrics-plus-container .text-not-found,
+body.ytm-custom-layout #lyrics-plus-container .loading-container {
+  display: none !important;
 }
 
 

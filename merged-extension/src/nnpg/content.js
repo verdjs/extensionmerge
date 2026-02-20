@@ -4952,32 +4952,9 @@ function renderLyrics(data) {
   const tick = async () => {
   if (document.querySelector('.ad-interrupting') || document.querySelector('.ad-showing')) return;
 
-    let toggleBtn = document.getElementById('my-mode-toggle');
-
-
-    if (!toggleBtn) {
-      const rc = document.querySelector('.right-controls-buttons');
-      if (rc) {
-        toggleBtn = createEl('button', 'my-mode-toggle', '', 'IMMERSION');
-
-
-        if (config.mode) toggleBtn.classList.add('active');
-
-        toggleBtn.onclick = () => {
-          config.mode = !config.mode;
-          document.body.classList.toggle('ytm-custom-layout', config.mode);
-          if (!config.mode) unmountYoulyLyrics();
-
-          toggleBtn.classList.toggle('active', config.mode);
-        };
-        rc.prepend(toggleBtn);
-      }
-    } else {
-
-      const isActive = toggleBtn.classList.contains('active');
-      if (config.mode && !isActive) toggleBtn.classList.add('active');
-      else if (!config.mode && isActive) toggleBtn.classList.remove('active');
-    }
+    // Remove any leftover toggle button if it exists
+    const oldToggleBtn = document.getElementById('my-mode-toggle');
+    if (oldToggleBtn) oldToggleBtn.remove();
 
 
     const layout = document.querySelector('ytmusic-app-layout');

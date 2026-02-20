@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouLy+ Settings</title>
+    <title>YTM Enhanced Settings</title>
     <link rel="stylesheet" type="text/css" href="../inject/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="ui.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
 <body>
     <aside class="navigation-drawer">
         <header class="drawer-header">
-            <span class="material-symbols-outlined logo-icon">lyrics</span>
-            <h1 class="drawer-title">YouLy+ Settings</h1>
+            <span class="material-symbols-outlined logo-icon">music_note</span>
+            <h1 class="drawer-title">YTM Enhanced</h1>
         </header>
         <nav class="drawer-nav">
             <a href="#" class="nav-item active" data-section="general">
@@ -26,6 +26,10 @@
             <a href="#" class="nav-item" data-section="appearance">
                 <span class="material-symbols-outlined">palette</span>
                 <span class="nav-item-label">Appearance</span>
+            </a>
+            <a href="#" class="nav-item" data-section="immersion">
+                <span class="material-symbols-outlined">blur_on</span>
+                <span class="nav-item-label">Immersion</span>
             </a>
             <a href="#" class="nav-item" data-section="translation">
                 <span class="material-symbols-outlined">translate</span>
@@ -507,6 +511,97 @@
                 <p id="appearance-save-status" class="status-message"></p>
             </section>
 
+            <!-- Immersion Section -->
+            <section class="settings-card" id="immersion">
+                <h2 class="card-title">Immersion</h2>
+                <p class="section-description">Settings for the immersive player layout powered by YTM-Immersion.</p>
+
+                <div class="settings-category">
+                    <h3 class="category-title">Background</h3>
+                    <div class="setting-item">
+                        <label class="form-group-label">Background Brightness</label>
+                        <input type="range" id="ytm-bg-brightness" min="0.1" max="0.8" step="0.01" value="0.35">
+                        <span id="ytm-bg-brightness-val" class="helper-text">35%</span>
+                        <p class="setting-description">Adjust the brightness of the immersive background.</p>
+                    </div>
+                </div>
+
+                <div class="settings-category">
+                    <h3 class="category-title">Lyrics Display</h3>
+                    <div class="setting-item">
+                        <label class="form-group-label">Lyric Font Weight</label>
+                        <input type="range" id="ytm-lyric-weight" min="100" max="900" step="100" value="700">
+                        <span id="ytm-lyric-weight-val" class="helper-text">700</span>
+                        <p class="setting-description">Adjust the font weight of the immersion lyrics.</p>
+                    </div>
+                    <div class="setting-item">
+                        <label class="form-group-label">Lyrics Sync Offset (ms)</label>
+                        <input type="number" id="ytm-sync-offset" value="0" style="width:100px;">
+                        <p class="setting-description">Fine-tune lyrics timing in milliseconds.</p>
+                    </div>
+                    <div class="setting-item">
+                        <label class="m3-switch">
+                            <input type="checkbox" id="ytm-save-sync-offset">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                            <span class="label">Keep Sync Offset Between Songs</span>
+                        </label>
+                        <p class="setting-description">Don't reset the sync offset when the song changes.</p>
+                    </div>
+                </div>
+
+                <div class="settings-category">
+                    <h3 class="category-title">Translation</h3>
+                    <div class="setting-item">
+                        <label class="m3-switch">
+                            <input type="checkbox" id="ytm-trans-enabled">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                            <span class="label">Enable Lyrics Translation</span>
+                        </label>
+                        <p class="setting-description">Show translated lyrics alongside the original.</p>
+                    </div>
+                    <div class="setting-item">
+                        <label class="m3-switch">
+                            <input type="checkbox" id="ytm-shared-trans">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                            <span class="label">Use Shared Translation API</span>
+                        </label>
+                        <p class="setting-description">Use a shared translation service (no API key required).</p>
+                    </div>
+                    <div class="setting-item">
+                        <div class="form-group">
+                            <input type="password" id="ytm-deepl-key" placeholder=" " autocomplete="off">
+                            <label for="ytm-deepl-key">DeepL API Key (Optional)</label>
+                        </div>
+                        <p class="helper-text">Enter your DeepL API key for higher quality translations.</p>
+                    </div>
+                </div>
+
+                <div class="settings-category">
+                    <h3 class="category-title">Advanced</h3>
+                    <div class="setting-item">
+                        <label class="m3-switch">
+                            <input type="checkbox" id="ytm-fast-mode">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                            <span class="label">Fast Load Mode</span>
+                        </label>
+                        <p class="setting-description">Fetch lyrics faster from GitHub cache. May reduce accuracy for covers.</p>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button id="save-immersion" class="m3-button filled">Save Immersion Settings</button>
+                </div>
+                <p id="immersion-save-status" class="status-message"></p>
+            </section>
+
             <!-- Cache Options Section -->
             <section class="settings-card" id="cache">
                 <h2 class="card-title">Cache</h2>
@@ -538,9 +633,9 @@
             <!-- About Section -->
             <section class="settings-card" id="about">
                 <div class="about-header">
-                    <img src="../../icons/icon128.png" alt="YouLy+ Logo" class="about-logo">
+                    <img src="../../icons/icon128.png" alt="YTM Enhanced Logo" class="about-logo">
                     <div class="about-header-text">
-                        <h2 class="card-title no-border">YouLy+</h2>
+                        <h2 class="card-title no-border">YTM Enhanced</h2>
                         <p class="version">Version unknown</p>
                     </div>
                 </div>

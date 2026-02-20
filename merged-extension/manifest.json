@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "YTM-Immersion + YouLy+",
+  "name": "YTM Enhanced",
   "version": "1.0.0",
-  "description": "Immersive YouTube Music UI with play statistics and YouLy+ word-by-word synced lyrics",
+  "description": "Enhanced YouTube Music experience with dynamic backgrounds, blur effects, immersive layout, and word-by-word synced lyrics",
   "permissions": [
     "storage",
     "unlimitedStorage",

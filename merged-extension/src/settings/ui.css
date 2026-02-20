@@ -1,54 +1,54 @@
-/* --- M3 Dark Theme Color & Typography Tokens --- */
+/* --- M3 Dark Theme Color & Typography Tokens (YTM Enhanced Theme) --- */
 :root {
-    --md-sys-color-primary: rgb(255 181 160);
-    --md-sys-color-surface-tint: rgb(255 181 160);
-    --md-sys-color-on-primary: rgb(86 31 15);
-    --md-sys-color-primary-container: rgb(114 53 35);
-    --md-sys-color-on-primary-container: rgb(255 219 209);
-    --md-sys-color-secondary: rgb(231 189 178);
-    --md-sys-color-on-secondary: rgb(68 42 34);
-    --md-sys-color-secondary-container: rgb(93 64 55);
-    --md-sys-color-on-secondary-container: rgb(255 219 209);
-    --md-sys-color-tertiary: rgb(216 197 141);
-    --md-sys-color-on-tertiary: rgb(59 47 5);
-    --md-sys-color-tertiary-container: rgb(83 70 25);
-    --md-sys-color-on-tertiary-container: rgb(245 225 167);
+    --md-sys-color-primary: rgb(255 100 100);
+    --md-sys-color-surface-tint: rgb(255 100 100);
+    --md-sys-color-on-primary: rgb(20 5 5);
+    --md-sys-color-primary-container: rgb(130 20 20);
+    --md-sys-color-on-primary-container: rgb(255 210 210);
+    --md-sys-color-secondary: rgb(220 160 160);
+    --md-sys-color-on-secondary: rgb(50 20 20);
+    --md-sys-color-secondary-container: rgb(80 40 40);
+    --md-sys-color-on-secondary-container: rgb(255 210 210);
+    --md-sys-color-tertiary: rgb(200 180 255);
+    --md-sys-color-on-tertiary: rgb(30 20 60);
+    --md-sys-color-tertiary-container: rgb(60 45 100);
+    --md-sys-color-on-tertiary-container: rgb(230 220 255);
     --md-sys-color-error: rgb(255 180 171);
     --md-sys-color-on-error: rgb(105 0 5);
     --md-sys-color-error-container: rgb(147 0 10);
     --md-sys-color-on-error-container: rgb(255 218 214);
-    --md-sys-color-background: rgb(26 17 15);
-    --md-sys-color-on-background: rgb(241 223 218);
-    --md-sys-color-surface: rgb(26 17 15);
-    --md-sys-color-on-surface: rgb(241 223 218);
-    --md-sys-color-surface-variant: rgb(83 67 63);
-    --md-sys-color-on-surface-variant: rgb(216 194 188);
-    --md-sys-color-outline: rgb(160 140 135);
-    --md-sys-color-outline-variant: rgb(83 67 63);
+    --md-sys-color-background: rgb(14 12 18);
+    --md-sys-color-on-background: rgb(230 225 235);
+    --md-sys-color-surface: rgb(14 12 18);
+    --md-sys-color-on-surface: rgb(230 225 235);
+    --md-sys-color-surface-variant: rgb(50 42 55);
+    --md-sys-color-on-surface-variant: rgb(190 180 200);
+    --md-sys-color-outline: rgb(110 100 120);
+    --md-sys-color-outline-variant: rgb(55 48 62);
     --md-sys-color-shadow: rgb(0 0 0);
     --md-sys-color-scrim: rgb(0 0 0);
-    --md-sys-color-inverse-surface: rgb(241 223 218);
-    --md-sys-color-inverse-on-surface: rgb(57 46 43);
-    --md-sys-color-inverse-primary: rgb(143 76 56);
-    --md-sys-color-primary-fixed: rgb(255 219 209);
-    --md-sys-color-on-primary-fixed: rgb(58 11 1);
-    --md-sys-color-primary-fixed-dim: rgb(255 181 160);
-    --md-sys-color-on-primary-fixed-variant: rgb(114 53 35);
-    --md-sys-color-secondary-fixed: rgb(255 219 209);
-    --md-sys-color-on-secondary-fixed: rgb(44 21 15);
-    --md-sys-color-secondary-fixed-dim: rgb(231 189 178);
-    --md-sys-color-on-secondary-fixed-variant: rgb(93 64 55);
-    --md-sys-color-tertiary-fixed: rgb(245 225 167);
-    --md-sys-color-on-tertiary-fixed: rgb(35 27 0);
-    --md-sys-color-tertiary-fixed-dim: rgb(216 197 141);
-    --md-sys-color-on-tertiary-fixed-variant: rgb(83 70 25);
-    --md-sys-color-surface-dim: rgb(26 17 15);
-    --md-sys-color-surface-bright: rgb(66 55 52);
-    --md-sys-color-surface-container-lowest: rgb(20 12 10);
-    --md-sys-color-surface-container-low: rgb(35 25 23);
-    --md-sys-color-surface-container: rgb(39 29 27);
-    --md-sys-color-surface-container-high: rgb(50 40 37);
-    --md-sys-color-surface-container-highest: rgb(61 50 47);
+    --md-sys-color-inverse-surface: rgb(230 225 235);
+    --md-sys-color-inverse-on-surface: rgb(40 35 45);
+    --md-sys-color-inverse-primary: rgb(180 40 40);
+    --md-sys-color-primary-fixed: rgb(255 210 210);
+    --md-sys-color-on-primary-fixed: rgb(60 5 5);
+    --md-sys-color-primary-fixed-dim: rgb(255 100 100);
+    --md-sys-color-on-primary-fixed-variant: rgb(130 20 20);
+    --md-sys-color-secondary-fixed: rgb(255 210 210);
+    --md-sys-color-on-secondary-fixed: rgb(50 15 15);
+    --md-sys-color-secondary-fixed-dim: rgb(220 160 160);
+    --md-sys-color-on-secondary-fixed-variant: rgb(80 40 40);
+    --md-sys-color-tertiary-fixed: rgb(230 220 255);
+    --md-sys-color-on-tertiary-fixed: rgb(20 15 50);
+    --md-sys-color-tertiary-fixed-dim: rgb(200 180 255);
+    --md-sys-color-on-tertiary-fixed-variant: rgb(60 45 100);
+    --md-sys-color-surface-dim: rgb(14 12 18);
+    --md-sys-color-surface-bright: rgb(40 35 48);
+    --md-sys-color-surface-container-lowest: rgb(8 6 12);
+    --md-sys-color-surface-container-low: rgb(20 17 26);
+    --md-sys-color-surface-container: rgb(24 20 32);
+    --md-sys-color-surface-container-high: rgb(34 28 42);
+    --md-sys-color-surface-container-highest: rgb(44 38 54);
 
     /* M3 Shape & Motion */
     --border-radius-smallest: 4px;
@@ -71,59 +71,6 @@
     --animation-easing-emphasized: cubic-bezier(0.2, 0.0, 0.0, 1.0);
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        --md-sys-color-primary: rgb(143 76 56);
-        --md-sys-color-surface-tint: rgb(143 76 56);
-        --md-sys-color-on-primary: rgb(255 255 255);
-        --md-sys-color-primary-container: rgb(255 219 209);
-        --md-sys-color-on-primary-container: rgb(114 53 35);
-        --md-sys-color-secondary: rgb(119 87 78);
-        --md-sys-color-on-secondary: rgb(255 255 255);
-        --md-sys-color-secondary-container: rgb(255 219 209);
-        --md-sys-color-on-secondary-container: rgb(93 64 55);
-        --md-sys-color-tertiary: rgb(108 93 47);
-        --md-sys-color-on-tertiary: rgb(255 255 255);
-        --md-sys-color-tertiary-container: rgb(245 225 167);
-        --md-sys-color-on-tertiary-container: rgb(83 70 25);
-        --md-sys-color-error: rgb(186 26 26);
-        --md-sys-color-on-error: rgb(255 255 255);
-        --md-sys-color-error-container: rgb(255 218 214);
-        --md-sys-color-on-error-container: rgb(147 0 10);
-        --md-sys-color-background: rgb(255 248 246);
-        --md-sys-color-on-background: rgb(35 25 23);
-        --md-sys-color-surface: rgb(255 248 246);
-        --md-sys-color-on-surface: rgb(35 25 23);
-        --md-sys-color-surface-variant: rgb(245 222 216);
-        --md-sys-color-on-surface-variant: rgb(83 67 63);
-        --md-sys-color-outline: rgb(133 115 110);
-        --md-sys-color-outline-variant: rgb(216 194 188);
-        --md-sys-color-shadow: rgb(0 0 0);
-        --md-sys-color-scrim: rgb(0 0 0);
-        --md-sys-color-inverse-surface: rgb(57 46 43);
-        --md-sys-color-inverse-on-surface: rgb(255 237 232);
-        --md-sys-color-inverse-primary: rgb(255 181 160);
-        --md-sys-color-primary-fixed: rgb(255 219 209);
-        --md-sys-color-on-primary-fixed: rgb(58 11 1);
-        --md-sys-color-primary-fixed-dim: rgb(255 181 160);
-        --md-sys-color-on-primary-fixed-variant: rgb(114 53 35);
-        --md-sys-color-secondary-fixed: rgb(255 219 209);
-        --md-sys-color-on-secondary-fixed: rgb(44 21 15);
-        --md-sys-color-secondary-fixed-dim: rgb(231 189 178);
-        --md-sys-color-on-secondary-fixed-variant: rgb(93 64 55);
-        --md-sys-color-tertiary-fixed: rgb(245 225 167);
-        --md-sys-color-on-tertiary-fixed: rgb(35 27 0);
-        --md-sys-color-tertiary-fixed-dim: rgb(216 197 141);
-        --md-sys-color-on-tertiary-fixed-variant: rgb(83 70 25);
-        --md-sys-color-surface-dim: rgb(232 214 210);
-        --md-sys-color-surface-bright: rgb(255 248 246);
-        --md-sys-color-surface-container-lowest: rgb(255 255 255);
-        --md-sys-color-surface-container-low: rgb(255 241 237);
-        --md-sys-color-surface-container: rgb(252 234 229);
-        --md-sys-color-surface-container-high: rgb(247 228 224);
-        --md-sys-color-surface-container-highest: rgb(241 223 218);
-    }
-}
 
 /* --- Base & Layout --- */
 *,
@@ -192,7 +139,8 @@ body {
 /* --- Navigation Drawer --- */
 .navigation-drawer {
     width: 260px;
-    background-color: var(--md-sys-color-surface-container-low);
+    background: linear-gradient(180deg, rgb(20 16 28) 0%, rgb(14 12 18) 100%);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
     padding: 12px;
     display: flex;
     flex-direction: column;
@@ -209,19 +157,29 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-    height: 64px;
+    height: 72px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .drawer-header .logo-icon {
     font-size: 28px;
     color: var(--md-sys-color-primary);
+    background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .drawer-title {
-    font-size: 1.375rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--md-sys-color-on-surface);
     white-space: nowrap;
+    background: linear-gradient(90deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-tertiary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .drawer-nav {
@@ -322,14 +280,26 @@ body {
 /* --- Typography & Sectioning --- */
 .card-title {
     font-size: 2.5rem;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.2;
     color: var(--md-sys-color-primary);
     margin-bottom: 48px;
+    background: linear-gradient(90deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-tertiary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 h2.card-title.no-border {
     margin-bottom: 0;
+}
+
+.section-description {
+    font-size: 0.9rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 24px;
+    margin-top: -36px;
+    padding: 0 4px;
 }
 
 .settings-category {
@@ -337,11 +307,13 @@ h2.card-title.no-border {
 }
 
 .category-title {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--md-sys-color-primary);
     margin-bottom: 24px;
-    padding-bottom: 16px;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
