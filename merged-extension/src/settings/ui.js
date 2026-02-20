@@ -742,3 +742,101 @@ document.addEventListener('click', function (e) {
         ripple.remove();
     });
 });
+
+// ---- Immersion (YTM-Immersion / nnpg) Settings ----
+
+const immersionBrowser = typeof browser !== 'undefined' ? browser : (typeof chrome !== 'undefined' ? chrome : null);
+
+function immersionStorageGet(key, defaultVal) {
+    return new Promise(resolve => {
+        immersionBrowser.storage.local.get([key], result => {
+            resolve(result[key] !== undefined ? result[key] : defaultVal);
+        });
+    });
+}
+
+function immersionStorageSet(items) {
+    return new Promise(resolve => immersionBrowser.storage.local.set(items, resolve));
+}
+
+async function loadImmersionSettings() {
+    const bgBrightness = await immersionStorageGet('ytm_bg_brightness', 0.35);
+    const lyricWeight = await immersionStorageGet('ytm_lyric_weight', 700);
+    const syncOffset = await immersionStorageGet('ytm_sync_offset', 0);
+    const saveSyncOffset = await immersionStorageGet('ytm_save_sync_offset', false);
+    const transEnabled = await immersionStorageGet('ytm_trans_enabled', true);
+    const sharedTrans = await immersionStorageGet('ytm_shared_trans_enabled', false);
+    const deeplKey = await immersionStorageGet('ytm_deepl_key', '');
+    const fastMode = await immersionStorageGet('ytm_fast_mode', false);
+
+    const bgSlider = document.getElementById('ytm-bg-brightness');
+    const bgVal = document.getElementById('ytm-bg-brightness-val');
+    if (bgSlider) {
+        bgSlider.value = bgBrightness;
+        if (bgVal) bgVal.textContent = Math.round(bgBrightness * 100) + '%';
+        bgSlider.addEventListener('input', e => {
+            if (bgVal) bgVal.textContent = Math.round(e.target.value * 100) + '%';
+        });
+    }
+
+    const weightSlider = document.getElementById('ytm-lyric-weight');
+    const weightVal = document.getElementById('ytm-lyric-weight-val');
+    if (weightSlider) {
+        weightSlider.value = lyricWeight;
+        if (weightVal) weightVal.textContent = lyricWeight;
+        weightSlider.addEventListener('input', e => {
+            if (weightVal) weightVal.textContent = e.target.value;
+        });
+    }
+
+    const syncEl = document.getElementById('ytm-sync-offset');
+    if (syncEl) syncEl.value = syncOffset;
+
+    const saveSyncEl = document.getElementById('ytm-save-sync-offset');
+    if (saveSyncEl) saveSyncEl.checked = !!saveSyncOffset;
+
+    const transEl = document.getElementById('ytm-trans-enabled');
+    if (transEl) transEl.checked = !!transEnabled;
+
+    const sharedTransEl = document.getElementById('ytm-shared-trans');
+    if (sharedTransEl) sharedTransEl.checked = !!sharedTrans;
+
+    const deeplEl = document.getElementById('ytm-deepl-key');
+    if (deeplEl) deeplEl.value = deeplKey || '';
+
+    const fastModeEl = document.getElementById('ytm-fast-mode');
+    if (fastModeEl) fastModeEl.checked = !!fastMode;
+}
+
+async function saveImmersionSettings() {
+    const bgBrightness = parseFloat(document.getElementById('ytm-bg-brightness')?.value || 0.35);
+    const lyricWeight = parseInt(document.getElementById('ytm-lyric-weight')?.value || 700, 10);
+    const syncOffset = parseFloat(document.getElementById('ytm-sync-offset')?.value || 0);
+    const saveSyncOffset = document.getElementById('ytm-save-sync-offset')?.checked || false;
+    const transEnabled = document.getElementById('ytm-trans-enabled')?.checked || false;
+    const sharedTrans = document.getElementById('ytm-shared-trans')?.checked || false;
+    const deeplKey = document.getElementById('ytm-deepl-key')?.value?.trim() || '';
+    const fastMode = document.getElementById('ytm-fast-mode')?.checked || false;
+
+    await immersionStorageSet({
+        ytm_bg_brightness: bgBrightness,
+        ytm_lyric_weight: lyricWeight,
+        ytm_sync_offset: syncOffset,
+        ytm_save_sync_offset: saveSyncOffset,
+        ytm_trans_enabled: transEnabled,
+        ytm_shared_trans_enabled: sharedTrans,
+        ytm_deepl_key: deeplKey,
+        ytm_fast_mode: fastMode,
+    });
+
+    showStatusMessage('immersion-save-status', 'Immersion settings saved! Reload YouTube Music to apply.', false);
+    showReloadNotification();
+}
+
+document.getElementById('save-immersion')?.addEventListener('click', saveImmersionSettings);
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => loadImmersionSettings());
+} else {
+    loadImmersionSettings();
+}

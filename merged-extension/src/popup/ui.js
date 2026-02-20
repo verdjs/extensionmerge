@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightweightSwitchInput = document.getElementById('lightweight');
     const lyEnabledSwitchInput = document.getElementById('lyEnabled');
     const sponsorBlockSwitchInput = document.getElementById('sponsorblock');
+    const blurInactiveSwitchInput = document.getElementById('blurInactive');
+    const dynamicPlayerSwitchInput = document.getElementById('dynamicPlayer');
 
     const clearCacheButton = document.getElementById('clearCache');
     const refreshCacheButton = document.getElementById('refreshCache');
@@ -105,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         lightweightSwitchInput.checked = currentSettings.lightweight;
         lyEnabledSwitchInput.checked = currentSettings.isEnabled;
         sponsorBlockSwitchInput.checked = currentSettings.useSponsorBlock;
+        if (blurInactiveSwitchInput) blurInactiveSwitchInput.checked = currentSettings.blurInactive;
+        if (dynamicPlayerSwitchInput) dynamicPlayerSwitchInput.checked = currentSettings.dynamicPlayer;
     }
 
     async function fetchAndLoadSettings() {
@@ -127,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lightweight: lightweightSwitchInput.checked,
             isEnabled: lyEnabledSwitchInput.checked,
             useSponsorBlock: sponsorBlockSwitchInput.checked,
+            blurInactive: blurInactiveSwitchInput ? blurInactiveSwitchInput.checked : currentSettings.blurInactive,
+            dynamicPlayer: dynamicPlayerSwitchInput ? dynamicPlayerSwitchInput.checked : currentSettings.dynamicPlayer,
         };
         currentSettings = { ...currentSettings, ...newSettings };
 
@@ -143,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Event Listeners for Settings ---
     lyricsProviderSelect.addEventListener('change', saveAndApplySettings);
     // For switches, the 'change' event is dispatched manually by the .m3-switch click handler
-    [wordByWordSwitchInput, lightweightSwitchInput, lyEnabledSwitchInput, sponsorBlockSwitchInput].forEach(input => {
+    [wordByWordSwitchInput, lightweightSwitchInput, lyEnabledSwitchInput, sponsorBlockSwitchInput, blurInactiveSwitchInput, dynamicPlayerSwitchInput].filter(Boolean).forEach(input => {
         input.addEventListener('change', saveAndApplySettings);
     });
 

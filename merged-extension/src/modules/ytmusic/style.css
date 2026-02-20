@@ -81,6 +81,19 @@ ytmusic-app #layout[player-ui-state="FULLSCREEN"] .ytmusic-browse-response {
     background: transparent !important;
 }
 
+/* Extend dynamic background through the sidebar / mini-guide */
+#layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] ytmusic-mini-guide-renderer,
+#layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] #guide-wrapper ytmusic-guide-renderer,
+#layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] #guide-inner-content {
+    background: transparent !important;
+}
+
+/* Make sidebar items semi-transparent so background shows through */
+#layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] ytmusic-guide-section-renderer,
+#layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] ytmusic-guide-entry-renderer {
+    background: transparent !important;
+}
+
 #layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] #nav-bar-divider.ytmusic-app-layout,
 #layout.dynamic-player[player-ui-state="MINIPLAYER_IN_PLAYER_PAGE"] #nav-bar-divider.ytmusic-app-layout,
 #layout.dynamic-player[player-ui-state="PLAYER_PAGE_OPEN"] #mini-guide-background,
@@ -212,6 +225,7 @@ div#lyrics-song-progressbar {
         transform: translate(-60%, -50%);
         overflow: visible;
         background: none !important;
+        z-index: 1;
     }
 
     ytmusic-player-page:is(:not([video-mode]), [video-mode]:has(ytmusic-player[playback-mode="ATV_PREFERRED"])):not([is-video-truncation-fix-enabled])[player-fullscreened]:has(#lyrics-plus-container[style*="display: block"]) #song-image img {
@@ -240,6 +254,8 @@ div#lyrics-song-progressbar {
         min-width: 50%;
         mask-image: linear-gradient(to bottom, transparent 0%, black 26%, black 70%, transparent 100%);
         transform: translateY(-8.8rem);
+        z-index: 2;
+        position: relative;
     }
 
     ytmusic-app-layout:not([is-mweb-modernization-enabled])[player-fullscreened] .lyplus-blur-container .lyplus-gradient-overlay {
