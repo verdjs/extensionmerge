@@ -61,6 +61,11 @@
 
 #lyrics-plus-container.lyrics-plus-message {
     height: 100%;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* --- Scroll Behavior & Performance --- */
@@ -120,6 +125,7 @@
     animation-fill-mode: both;
     animation-delay: var(--lyrics-line-delay, 0ms);
 }
+
 .lyrics-line:not(.scroll-animate),
 .lyrics-plus-metadata:not(.scroll-animate) {
     animation: none;
@@ -446,6 +452,7 @@
     animation: gap-ended 0.8s ease;
     transform: translateY(-25%) scale(0) translateZ(0);
 }
+
 .lyrics-line.lyrics-gap:not(.active) .main-vocal-container .lyrics-word {
     animation-play-state: paused;
 }
@@ -529,19 +536,20 @@ span.lyrics-source-provider {
 
 #lyrics-plus-container .text-not-found {
     display: block;
-    position: absolute;
-    top: 30%;
+    position: relative;
+    top: auto;
     width: 100%;
     text-align: center;
     font-size: var(--lyplus-font-size-status);
     letter-spacing: 1px;
     text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
     transition: opacity 0.3s ease;
+    margin-top: 1em;
 }
 
 #lyrics-plus-container .loading-container {
-    position: absolute;
-    top: 30%;
+    position: relative;
+    top: auto;
     width: 100%;
     text-align: center;
     font-size: var(--lyplus-font-size-button);
