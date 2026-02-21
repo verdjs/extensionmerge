@@ -666,6 +666,48 @@ body.ytm-share-select-mode .lyric-line.share-select-end::before {
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
+.lyric-loading-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+}
+
+.lyric-loading-bars i {
+  display: block;
+  width: 5px;
+  background: #fff;
+  border-radius: 3px;
+  animation: eq-bounce 0.8s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.lyric-loading-bars i:nth-child(1) {
+  height: 14px;
+  animation-delay: 0s;
+}
+
+.lyric-loading-bars i:nth-child(2) {
+  height: 24px;
+  animation-delay: 0.15s;
+}
+
+.lyric-loading-bars i:nth-child(3) {
+  height: 32px;
+  animation-delay: 0.3s;
+}
+
+.lyric-loading-bars i:nth-child(4) {
+  height: 24px;
+  animation-delay: 0.45s;
+}
+
+.lyric-loading-bars i:nth-child(5) {
+  height: 14px;
+  animation-delay: 0.6s;
+}
+
 /* ポップアップの z-index */
 body.ytm-custom-layout ytmusic-popup-container,
 body.ytm-custom-layout ytmusic-popup-container tp-yt-iron-dropdown {

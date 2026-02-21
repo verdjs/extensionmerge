@@ -3159,15 +3159,7 @@ async function applyLyricsText(rawLyrics) {
     } catch (e) {
       console.warn('[CS] SELECT_LYRICS_CANDIDATE failed to send', e);
     }
-    const reloadKey = currentKey;
-    setTimeout(() => {
-      const metaNow = getMetadata();
-      if (!metaNow) return;
-      const keyNow = `${metaNow.title}///${metaNow.artist}`;
-      if (keyNow !== reloadKey) return;
-      storage.remove(reloadKey);
-      loadLyrics(metaNow);
-    }, 10000);
+
   }
 
   function refreshCandidateMenu() {
@@ -4037,7 +4029,13 @@ function renderSettingsPanel() {
     autoMountYoulyLyrics();
   }
 
+  function showLyricsLoading() {
+    if (!ui.lyrics) return;
+    ui.lyrics.innerHTML = '<div class="lyric-loading"><span class="lyric-loading-bars"><i></i><i></i><i></i><i></i><i></i></span></div>';
+  }
+
   async function loadLyrics(meta) {
+    showLyricsLoading();
     if (!config.deepLKey) config.deepLKey = await storage.get('ytm_deepl_key');
     const cachedTrans = await storage.get('ytm_trans_enabled');
     if (cachedTrans !== null && cachedTrans !== undefined) config.useTrans = cachedTrans;
