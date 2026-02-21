@@ -883,6 +883,7 @@
   // ===================== Immersion Logic =====================
 
   let currentKey = null;
+  let currentVideoId = null;
   let lyricsData = [];
   let hasTimestamp = false;
   let dynamicLines = null;
@@ -4031,6 +4032,7 @@ function renderSettingsPanel() {
 
   function showLyricsLoading() {
     if (!ui.lyrics) return;
+    document.body.classList.add('ytm-lyrics-loading');
     ui.lyrics.innerHTML = '<div class="lyric-loading"><span class="lyric-loading-bars"><i></i><i></i><i></i><i></i><i></i></span></div>';
   }
 
@@ -4438,6 +4440,7 @@ function renderLyrics(data) {
     ui.lyrics.innerHTML = '';
     ui.lyrics.scrollTop = 0;
     const hasData = Array.isArray(data) && data.length > 0;
+    document.body.classList.remove('ytm-lyrics-loading');
     document.body.classList.toggle('ytm-no-lyrics', !hasData);
     document.body.classList.toggle('ytm-has-timestamp', hasTimestamp);
     document.body.classList.toggle('ytm-no-timestamp', !hasTimestamp);
@@ -4985,8 +4988,16 @@ function renderLyrics(data) {
     const meta = getMetadata();
     if (!meta) return;
     const key = `${meta.title}///${meta.artist}`;
+    const vid = getCurrentVideoId();
 
     if (currentKey !== key) {
+      // If only the metadata text changed but the video_id is the same, this is a late
+      // mediaSession update on the same track — update currentKey silently without reloading.
+      if (vid && currentVideoId && vid === currentVideoId) {
+        currentKey = key;
+        return;
+      }
+
       // Cloud sync
       if (currentKey !== null && CloudSync && typeof CloudSync.syncNow === 'function') {
         CloudSync.syncNow();
@@ -5020,6 +5031,7 @@ function renderLyrics(data) {
 
 
       currentKey = key;
+      currentVideoId = vid;
       lyricsData = [];
       dynamicLines = null;
       duetSubDynamicLines = null;
